@@ -16,7 +16,7 @@ class LogParser(object):
             r"\[(?P<CORE>.*?)] "
             r"(\[(?P<EXTRA>.*?)])?"
             r"\[(?P<TYPE>.*?)]"
-            r"(?P<CONTENT>.*$)\n"
+            r" ?(?P<CONTENT>.*$)\n"
             r")?")
 
         self._log_parsed = []
@@ -116,6 +116,8 @@ def parse_arg() -> argparse.Namespace:
     parser.add_argument('-t', '--type', type=str, help='Type')
     parser.add_argument('-x', '--content', type=str, help='Content')
 
+    parser.add_argument('-o', '--only-content', action='store_true', help='Only print content')
+
     parser.add_argument('-a', '--all-categories', action='store_true', help='Get all categories')
     return parser.parse_args()
 
@@ -136,7 +138,10 @@ def main():
             extra=args.extra,
             type=args.type,
             content=args.content):
-        print(log["LOG"], end="")
+        if args.only_content:
+            print(log["CONTENT"])
+        else:
+            print(log["LOG"], end="")
 
 
 if __name__ == "__main__":
