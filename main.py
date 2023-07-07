@@ -63,7 +63,7 @@ class LogParser(object):
 
         return categories
 
-    def get(self, date=None, tid=None, core=None, extra=None, type=None, content=None):
+    def find(self, date=None, tid=None, core=None, extra=None, type=None, content=None):
         def filter_cb(x):
             can_keep = True
             if date is not None:
@@ -80,22 +80,23 @@ class LogParser(object):
 
         return filter(filter_cb, self._log_parsed)
 
-    def save(self):
-        pass
-
     def print(self):
         pass
 
     def __str__(self):
-        return self.path
+        return str({
+            "path": self.path,
+            "reg": self.reg_compiled
+        })
 
     def __repr__(self):
-        return self.path
+        return str(self)
 
 
 l = LogParser("test.log")
+print(l)
 l.parse()
 
-res = l.get(core="ap", type="WIDGETLOG")
+res = l.find(core="ap", type="WIDGETLOG")
 for r in res:
     print(r["CONTENT"])
