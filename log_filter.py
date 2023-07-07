@@ -67,6 +67,9 @@ class LogParser(object):
 
     def find(self, date=None, tid=None, core=None, extra=None, type=None, content=None):
         def filter_cb(x):
+            if x["LOG"] is None:
+                return False
+
             can_keep = True
             if date is not None:
                 can_keep = can_keep and x["DATE"] == date
