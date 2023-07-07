@@ -61,12 +61,24 @@ class LogParser(object):
             if typ not in categories[core]["tid"][tid]["type"]:
                 categories[core]["tid"][tid]["type"].append(typ)
 
-            # categories[core]["tid"][tid]["type"][typ]["content"].append(content)
-
         return categories
 
     def get(self, date=None, tid=None, core=None, extra=None, type=None, content=None):
-        filter(lambda x: x["DATE"] == date, self._log_parsed)
+        def filter_cb(x):
+            can_keep = True
+            if date is not None:
+                can_keep = can_keep and x["DATE"] == date
+            if tid is not None:
+                can_keep = can_keep and x["TID"] == tid
+            if core is not None:
+                can_keep = can_keep and x["CORE"] == core
+            if extra is not None:
+                can_keep = can_keep and x["EXTRA"] == extra
+            if type is not None:
+                can_keep = can_keep and x["TYPE"] == type
+            return can_keep
+
+        return filter(filter_cb, self._log_parsed)
 
     def save(self):
         pass
@@ -83,7 +95,7 @@ class LogParser(object):
 
 l = LogParser("test.log")
 l.parse()
-l2 = l.get_all_categories()
-import json
 
-print(json.dumps(l2["ap"], indent=4))
+res = l.get(core="ap", type="WIDGETLOG")
+for r in res:
+    print(r["CONTENT"])
