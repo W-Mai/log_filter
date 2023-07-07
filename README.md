@@ -2,9 +2,7 @@
 
 ## Description
 
-This is a simple log filter that can be used to filter out log messages from a log file.
-
-like this:
+This is a simple log filter that can be used to filter out logs like this:
 
 ```bash
 [07/06 08:20:56] [35] [ap] [service0] start=0x3c265ef8 size=8192 user=0x2c680cef
