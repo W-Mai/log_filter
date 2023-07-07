@@ -124,7 +124,6 @@ def parse_arg() -> argparse.Namespace:
 
 def main():
     args = parse_arg()
-    print(args)
     log_parser = LogParser(args.path)
     log_parser.parse()
     if args.all_categories:
