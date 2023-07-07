@@ -93,10 +93,26 @@ class LogParser(object):
         return str(self)
 
 
-l = LogParser("test.log")
-print(l)
-l.parse()
+def parse_arg() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description='Log Parser')
+    parser.add_argument('path', type=str, help='Path to log file')
+    parser.add_argument('-d', '--date', type=str, help='Date')
+    parser.add_argument('-i', '--tid', type=str, help='Thread ID')
+    parser.add_argument("-c", '--core', type=str, help='Core')
+    parser.add_argument('-e', '--extra', type=str, help='Extra')
+    parser.add_argument('-t', '--type', type=str, help='Type')
+    parser.add_argument('-x', '--content', type=str, help='Content')
 
-res = l.find(core="ap", type="WIDGETLOG")
-for r in res:
-    print(r["CONTENT"])
+    parser.add_argument('-a', '--all-categories', action='store_true', help='Get all categories')
+    return parser.parse_args()
+
+
+def main():
+    args = parse_arg()
+    print(args)
+    log_parser = LogParser(args.path)
+    log_parser.parse()
+
+
+if __name__ == "__main__":
+    main()
