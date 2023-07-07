@@ -52,8 +52,10 @@ options:
 ./log_filter.py log.log -c ap -t service0
 ```
 
-> [07/06 08:20:56] [35] [ap] [service0] start=0x3c265ef8 size=8192 user=0x2c680cef
-> [07/06 08:20:56] [35] [ap] [service0] service0_init: service0 is unlocked, tag=init
+```bash
+[07/06 08:20:56] [35] [ap] [service0] start=0x3c265ef8 size=8192 user=0x2c680cef
+[07/06 08:20:56] [35] [ap] [service0] service0_init: service0 is unlocked, tag=init
+```
 
 ### Filter by `asd` type
 
@@ -61,10 +63,11 @@ options:
 ./log_filter.py log.log -t asd
 ```
 
-> ./log_filter.py log.log -t asd
-> [07/06 08:20:57] [35] [ap] [asd] start_asd_server: started, server: asdserver
-> [07/06 08:20:57] [35] [ap] [asd] asd: begin load file: /files//666/resource.bin
-> [07/06 08:20:57] [31] [ap] [asd] stack_init: Firmware Version: 0x114514
+```bash
+[07/06 08:20:57] [35] [ap] [asd] start_asd_server: started, server: asdserver
+[07/06 08:20:57] [35] [ap] [asd] asd: begin load file: /files//666/resource.bin
+[07/06 08:20:57] [31] [ap] [asd] stack_init: Firmware Version: 0x114514
+```
 
 ### Filter by `asd` type and only print content
 
@@ -72,8 +75,8 @@ options:
 ./log_filter.py log.log -t asd -o
 ```
 
-> ./log_filter.py log.log -t asd
-> start_asd_server: started, server: asdserver
-> asd: begin load file: /files//666/resource.bin
-> stack_init: Firmware Version: 0x114514
-
+```bash
+start_asd_server: started, server: asdserver
+asd: begin load file: /files//666/resource.bin
+stack_init: Firmware Version: 0x114514
+```
