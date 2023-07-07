@@ -1,5 +1,6 @@
 import re
 import argparse
+import sys
 
 
 class LogParser(object):
@@ -7,7 +8,7 @@ class LogParser(object):
         self.path = path
 
         self.reg_compiled = re.compile(
-            r"("
+            r"(?P<LOG>"
             r"\[(?P<DATE>[0-9]+/[0-9]+ [0-9]+:[0-9]+:[0-9]+)] "
             r"\[(?P<TID>[0-9]+?)] "
             r"\[(?P<CORE>.*?)] "
@@ -79,6 +80,14 @@ class LogParser(object):
 
         return filter(filter_cb, self._log_parsed)
 
+    def print_all_categories(self):
+        categories = self.get_all_categories()
+        for core in categories:
+            print("Core:", core)
+            for tid in categories[core]["tid"]:
+                print("    TID:", tid)
+                print("        Type: ", ", ".join(categories[core]["tid"][tid]["type"]))
+
     def print(self):
         pass
 
@@ -111,6 +120,18 @@ def main():
     print(args)
     log_parser = LogParser(args.path)
     log_parser.parse()
+    if args.all_categories:
+        log_parser.print_all_categories()
+        sys.exit(0)
+
+    for log in log_parser.find(
+            date=args.date,
+            tid=args.tid,
+            core=args.core,
+            extra=args.extra,
+            type=args.type,
+            content=args.content):
+        print(log["LOG"], end="")
 
 
 if __name__ == "__main__":
