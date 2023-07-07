@@ -5,7 +5,6 @@ import argparse
 class LogParser(object):
     def __init__(self, path):
         self.path = path
-        # self.log_reg = log_reg
 
         self.reg_compiled = re.compile(
             r"("
