@@ -22,7 +22,7 @@ class LogParser(object):
         self._log_parsed = []
 
     def parse(self):
-        with open(self.path, "r") as f:
+        with open(self.path, "r", encoding="utf-8", errors="ignore") as f:
             for line in f.readlines():
                 res = self.reg_compiled.match(line)
                 self._log_parsed.append(res.groupdict())
